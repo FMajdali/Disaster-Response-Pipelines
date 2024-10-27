@@ -11,8 +11,8 @@ This respiratory is my submission for the Disaster Response Pipelines project fo
 4. DisasterResponse.db: This is my output from process_data.py, I have added it for reference
 
 5. train_classifier.py: this script reads the database produced by process_data.py, which in our case is DisasterResponse.db, and then it builds a sklearn pipeline, this pipeline engineers two main features:
-Build a term-document matrix using a custom tokenizer, then apply TF-idf algorithm to it as a feature
-Make three features that represents: the message length, the number of words in the message, and if the specific words ("water", "food", "earthquake") are in the message
+ * Build a term-document matrix using a custom tokenizer, then apply TF-idf algorithm to it as a feature
+ * Make three features that represent: the message length, the number of words in the message, and if the specific words ("water", "food", "earthquake") are in the message
 
 Then the pipeline feeds these features into a multi-output random forest, after that, there is an evaluation function that evaluates the performance of the model and print metrics.
 The script also saves the ML model into a pickle file, which in our case is train_classifier.py
