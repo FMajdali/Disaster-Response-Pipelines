@@ -26,11 +26,9 @@ The script also saves the ML model into a pickle file, which in our case is trai
 
     - To run ETL pipeline that cleans data and stores in database you need to run process_data.py while passing the paths of disaster_messages.csv, disaster_categories.csv, and the path for the output database,
       for example:
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
-    - To run ML pipeline that trains classifier and saves a pkl model you need to run train_classifier.py while passing the path of the cleaned messages database,
+        `python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db`
+    - To run ML pipeline that trains classifier and saves a pkl model you need to run train_classifier.py while passing the path of the cleaned messages database and the name for the output model,
       For example
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
-
-2. Go to `app` directory: `cd app`
-
-3. Run your web app: `python run.py`
+        `python train_classifier.py DisasterResponse.db classifier.pkl`
+      
+2. Run your web app: `python run.py`
