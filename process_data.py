@@ -3,13 +3,14 @@ import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine 
 
+#This function loads messages and categories from CSV files and merge them into one pandas dataframe as an output
 def load_data(messages_filepath, categories_filepath):
     messages = pd.read_csv( messages_filepath ,dtype = str)
     categories = pd.read_csv(categories_filepath, dtype= str)
     return pd.merge(messages,categories, on = "id")
 
 
-
+#This function cleans the dataframe catgories column by sperating each catgory into one column
 def clean_data(df):
     categories = df.categories.str.split(";", expand= True)
     row = categories.iloc[[0]]
@@ -42,7 +43,7 @@ def clean_data(df):
     
     return df.copy()
 
-
+#save the dataframe into an SQL database
 def save_data(df, database_filename):
     engine = create_engine('sqlite:///' + database_filename)
     df.to_sql('Messages', engine, index=False) 
