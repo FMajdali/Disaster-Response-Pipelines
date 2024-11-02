@@ -22,6 +22,8 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import ShuffleSplit
 
+#This class inherits from the sklearn BaseEstimator
+#It is an estimator which returns a feature of messgae length 
 class MessageLength(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
@@ -29,6 +31,8 @@ class MessageLength(BaseEstimator, TransformerMixin):
     def transform(self, X):
         return np.array([[len(text)] for text in X])
 
+#This class inherits from the sklearn BaseEstimator
+#It is an estimator which returns a feature of words count in the message
 class MessageWordsCount(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
@@ -36,6 +40,9 @@ class MessageWordsCount(BaseEstimator, TransformerMixin):
     def transform(self, X):
         return np.array([[len(text.split())] for text in X])
 
+#This class inherits from the sklearn BaseEstimator
+#It is an estimator which returns a feature of 1 if the
+#words ["water","food","earthquake"] are in the message, else it returns 0
 class WordInMessage(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
@@ -47,6 +54,9 @@ class WordInMessage(BaseEstimator, TransformerMixin):
             lst.append(np.array([[1] if word in text.lower() else [0] for text in X]).reshape(-1,1))
         return np.concatenate(lst,axis=1)
 
+#This function loads the messages and catgories data from SQL Database file
+#It outputs The independet varibale which in our case is the messages,
+#the labeles which in our case is the catgories, and lables names
 def load_data(database_filepath):
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql_table('Messages',con= engine)
@@ -63,6 +73,8 @@ def load_data(database_filepath):
     
     return X, Y, cols
 
+#This function takes a string as an input then it tokenize it and lemmatize it
+# the out put is a list  of clean tokens
 def tokenize(text):
     lemmatizer = WordNetLemmatizer()
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
@@ -82,6 +94,8 @@ def tokenize(text):
     clean_tokens = [t for t in clean_tokens if t.isalpha()]
     return clean_tokens
 
+#This function builds a sklearn pipline where the estimator is a random forest
+#The output of this function is a pipeline
 def build_model():
     best_params = {'clf__estimator__criterion': 'gini',
                     'clf__estimator__max_depth': 5,
@@ -105,6 +119,8 @@ def build_model():
     
     return pipeline
 
+#This function evalute a trained model in terms of average precision, average recall, and averge f1 score
+#It prints the results
 def evaluate_model(model, X_test, Y_test, category_names):
     Y_pred = model.predict(X_test)
     df_results = pd.DataFrame(columns = ["col_name","avg_precision","avg_recall","avg_f1_score","support"])
@@ -116,6 +132,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
         df_results.loc[len(df_results)] = res
     print(df_results)
 
+#This function saves the input model as a pkl file 
 def save_model(model, model_filepath):
     joblib.dump(model, model_filepath)
 
