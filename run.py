@@ -28,6 +28,8 @@ def tokenize(text):
 
     return clean_tokens
 
+#This class inherits from the sklearn BaseEstimator
+#It is an estimator which returns a feature of messgae length 
 class MessageLength(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
@@ -35,6 +37,8 @@ class MessageLength(BaseEstimator, TransformerMixin):
     def transform(self, X):
         return np.array([[len(text)] for text in X])
 
+#This class inherits from the sklearn BaseEstimator
+#It is an estimator which returns a feature of words count in the message
 class MessageWordsCount(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
@@ -42,6 +46,9 @@ class MessageWordsCount(BaseEstimator, TransformerMixin):
     def transform(self, X):
         return np.array([[len(text.split())] for text in X])
 
+#This class inherits from the sklearn BaseEstimator
+#It is an estimator which returns a feature of 1 if the
+#words ["water","food","earthquake"] are in the message, else it returns 0
 class WordInMessage(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
