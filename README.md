@@ -21,7 +21,7 @@ The script also saves the ML model into a pickle file, which in our case is trai
 
 7. run.py: This is a web app that takes both DisasterResponse.db and classifier.pkl as input, then it has a UI which allows the user to enter a message and it will provide the predicted classification 
 
-#Running the App
+# Running the App
 1. Run the following commands in the files root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database you need to run process_data.py while passing the paths of disaster_messages.csv, disaster_categories.csv, and the path for the output database,
