@@ -31,4 +31,4 @@ The script also saves the ML model into a pickle file, which in our case is trai
       For example
         `python train_classifier.py DisasterResponse.db classifier.pkl`
       
-2. Run your web app: `python run.py`
+2. Run your web app: `python run.py`, the path having the run.py script should also contain the folder templates so app could work proprly 
