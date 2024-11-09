@@ -21,6 +21,8 @@ The script also saves the ML model into a pickle file, which in our case is trai
 
 7. run.py: This is a web app that takes both DisasterResponse.db and classifier.pkl as input, then it has a UI which allows the user to enter a message and it will provide the predicted classification 
 
+8. templates: a folder containing necessary files for the run.py to work proprly 
+
 # Running the App
 1. Run the following commands in the files root directory to set up your database and model.
 
